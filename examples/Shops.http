@@ -1,0 +1,37 @@
+### Fetches the details of the bike shop with ID 1
+GET https://localhost:1903/api/bikeshop/1
+
+### Creates a new bike shop with the provided details
+POST https://localhost:1903/api/bikeshop
+content-type: application/json
+
+{
+  "Id": 6,
+  "Name": "New Bike Shop",
+  "Description": "Description of the new bike shop.",
+  "Category": "Category",
+  "HasDelivery": true,
+  "AddressId": 106,
+  "Status": 1,
+  "ImageUrl": "https://example.com/newbikeshop.jpg",
+  "RideLogSignatures": [
+    "17091908-DEP-ARR-WB004",
+    "17091909-DEP-ARR-WB005"
+  ],
+  "BikeTrickSignatures": [
+    "L4B-H2C-R3A-S1D-T2E",
+    "L3C-H4B-R2D-S1E-T2F"
+  ]
+}
+
+### Fetches the details of the bike with ID 1 from the bike shop with ID 1
+GET https://localhost:1903/api/bikeshop/1/bikes/1/details
+
+### Takes a ride on the bike with ID 2 from the bike shop with ID 1 for 10 km
+POST https://localhost:1903/api/bikeshop/1/bikes/2/takeRide/10
+
+### Simulates a malfunction on the bike with ID 1 from the bike shop with ID 1
+POST https://localhost:1903/api/bikeshop/1/bikes/1/bikeMalfunction
+
+### Calculates the range of the bike with ID 4 from the bike shop with ID 2
+POST https://localhost:1903/api/bikeshop/2/bikes/4/calculateRange
