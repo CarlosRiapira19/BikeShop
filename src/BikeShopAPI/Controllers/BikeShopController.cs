@@ -121,7 +121,43 @@ namespace BikeShopAPI.Controllers
                         ShopId = 3
                     }
                 }
+            },
+            new BikeShop
+            {
+                Id = 4,
+                Name = "Mountain Trails",
+                Description = "Specialized in mountain bikes for trail enthusiasts.",
+                Category = "Mountain",
+                HasDelivery = true,
+                AddressId = 104,
+                Status = ShopStatus.Open,
+                Bikes = new List<Bike>
+                {
+                    new() {
+                        Id = 7,
+                        Brand = "Trek",
+                        Model = "Fuel EX",
+                        Description = "A versatile mountain bike for trail riding.",
+                        Price = 3500,
+                        ForkTravel = 130,
+                        RearTravel = 120,
+                        WaterInBidon = 800,
+                        ShopId = 4
+                    },
+                    new() {
+                        Id = 8,
+                        Brand = "Santa Cruz",
+                        Model = "Hightower",
+                        Description = "A high-performance trail bike for aggressive riding.",
+                        Price = 4500,
+                        ForkTravel = 150,
+                        RearTravel = 145,
+                        WaterInBidon = 900,
+                        ShopId = 4
+                    }
+                }
             }
+
         };
 
         [HttpGet]
@@ -144,13 +180,53 @@ namespace BikeShopAPI.Controllers
 
             return Ok(bikeshop);
         }
-
+        
         [HttpPost]
         public ActionResult<BikeShop> Create(BikeShop bikeShop)
         {
             BikeShops.Add(bikeShop);
             return CreatedAtAction(nameof(GetById), new { id = bikeShop.Id }, bikeShop);
         }
+
+        [HttpPut("{id}")]
+        public ActionResult Update(int id, BikeShop updatedBikeShop)
+        {
+            var bikeShop = BikeShops.Find(b => b.Id == id); 
+            if (bikeShop != null)
+            {
+                bikeShop.Name = updatedBikeShop.Name;
+                bikeShop.Description = updatedBikeShop.Description;
+                bikeShop.Category = updatedBikeShop.Category;
+                bikeShop.HasDelivery = updatedBikeShop.HasDelivery;
+                bikeShop.AddressId = updatedBikeShop.AddressId;
+                bikeShop.Status = updatedBikeShop.Status;
+
+                return NoContent();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        // delete bike shop
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
+        {
+            var bikeShop = BikeShops.Find(b => b.Id == id);
+            if (bikeShop != null)
+            {
+                BikeShops.Remove(bikeShop);
+                return NoContent();
+            }
+            else
+            {           
+                return NotFound();
+            }           
+
+        }
+
+
 
         [HttpPost("{id}/status")]
         public ActionResult UpdateShopStatus(int id, ShopStatus newStatus)
