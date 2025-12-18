@@ -10,8 +10,11 @@
         public int ForkTravel { get; set; }
         public int RearTravel { get; set; }
         public int WaterInBidon { get; set; }
-
+        
         public int ShopId { get; set; }
         public virtual BikeShop? BikeShop { get; set; }
+
+        public List<string> RideLogSignatures { get; set; } = new();
+        public List<RideLog> RideLogs { get; set; } = new();
     }
 }
